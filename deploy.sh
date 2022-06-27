@@ -1,2 +1,3 @@
 yarn run build
-mv ./dist ./docs
+rm -R docs
+mv dist docs
