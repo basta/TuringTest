@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--    <script src="https://unpkg.com/vue@3"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<!--    <link rel="stylesheet" href="bulma.css">-->
+    
+    <title>Hello Bulma!</title>
+  <script type="module" crossorigin src="/assets/index.fde7998a.js"></script>
+</head>
+<body id="app">
+<!--  Header-->
+<section class="navbar">
+    <div class="container">
+        <div class="navbar-brand">
+            <h1 class="title navbar-item"> Reddit Turing Test </h1>
+        </div>
+        <div class="navbar-end">
+            <a class="navbar-item">
+                <span>Made with love by </span>&nbsp;<span class="has-text-link">basta</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+<section class="section">
+    <div class="hero">
+        <div class="hero-body has-text-centered">
+            <p class="subtitle">Current subreddit:</p>
+            <h2 class="title"><span class="has-text-grey">r/</span>{{ turtest["subreddit"] }}</h2>
+            <div class="columns">
+                <div class="column">
+                    <div class="container has-background-primary-light is-rounded p-4"
+                         style="height: 100%; flex-direction: column; display: flex; justify-content: space-between">
+                        <article class="media mb-4">
+                            <div class="media-content">
+                                <strong>{{ turtest.leftpost.title }}</strong>
+                                <p class="content">
+                                    {{ turtest.leftpost.text }}
+                                </p>
+                            </div>
+                        </article>
+                        <button @click="select" class="button is-primary is-fullwidth"><strong>This is human!</strong></button>
+                    </div>
+                    <h3 class="subtitle has-text-info is-size-1"
+                        style="position: relative; top: -10px; z-index: -1"
+                        v-if="!asking && turtest.leftpost.isHuman"
+                        >HUMAN</h3>
+                    <h3 class="subtitle has-text-danger is-size-1"
+                        style="position: relative; top: -10px; z-index: -1"
+                        v-if="!asking && !turtest.leftpost.isHuman"
+                        >AI</h3>
+                </div>
+                <div class="column">
+                    <div class="container has-background-primary-light is-rounded p-4"
+                         style="height: 100%; flex-direction: column; display: flex; justify-content: space-between">
+                        <article class="media mb-4">
+                            <div class="media-content">
+                                <strong>{{ turtest.rightpost.title }}</strong>
+                                <p class="content">
+                                    {{ turtest.rightpost.text }}
+                                </p>
+                            </div>
+                        </article>
+                        <button @click="select" class="button is-primary is-fullwidth"><strong>No, This is human!</strong></button>
+                    </div>
+                    <h3 class="subtitle has-text-info is-size-1"
+                        style="position: relative; top: -10px; z-index: -1"
+                        v-if="!asking && turtest.rightpost.isHuman"
+                        >HUMAN</h3>
+                    <h3 class="subtitle has-text-danger is-size-1"
+                        style="position: relative; top: -10px; z-index: -1"
+                        v-if="!asking && !turtest.rightpost.isHuman"
+                        >AI</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
