@@ -31,7 +31,7 @@ createApp({
       this.asking = !this.asking
     },
     loadTest(){
-      fetch("./turtests.json").then( response => response.json()).then(json => {
+      fetch(window.location + "turtests.json").then( response => response.json()).then(json => {
         let test = sample(json)
         this.turtest.subreddit = test.subreddit
         console.log(test)
