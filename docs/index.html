@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<!--    <link rel="stylesheet" href="bulma.css">-->
     
-    <title>Reddit Turing Test</title>
-  <script type="module" crossorigin src="/TuringTest/assets/index.1a47b460.js"></script>
+    <!--    <link rel="stylesheet" href="bulma.css">-->
+    
+    <title>Hello Bulma!</title>
+  <script type="module" crossorigin src="/TuringTest/assets/index.9c817cd0.js"></script>
 </head>
 <body id="app">
 <!--  Header-->
@@ -30,6 +31,14 @@
         <div class="hero-body has-text-centered">
             <p class="subtitle">Current subreddit:</p>
             <h2 class="title"><span class="has-text-grey">r/</span>{{ turtest["subreddit"] }}</h2>
+            <div v-if="incorrect + correct !== 0" class="p-1" style="display: flex; justify-content: space-between">
+                <p class="has-text-info has-text-weight-bold">Correct: {{ correct }}</p>
+                <p class="has-text-danger has-text-weight-bold">Incorrect: {{ incorrect }} </p>
+            </div>
+            <progress
+                    v-if="incorrect + correct !== 0"
+                    class="progress is-info has-background-danger" :max="correct + incorrect"
+                    :value="correct"></progress>
             <div class="columns">
                 <div class="column">
                     <div class="container has-background-primary-light is-rounded p-4"
@@ -42,16 +51,18 @@
                                 </p>
                             </div>
                         </article>
-                        <button @click="select" class="button is-primary is-fullwidth"><strong>This is human!</strong></button>
+                        <button id="left" @click="select" class="button is-primary is-fullwidth has-text-weight-bold">
+                            This is human!
+                        </button>
                     </div>
-                    <h3 class="subtitle has-text-info is-size-1"
-                        style="position: relative; top: -10px; z-index: -1"
-                        v-if="!asking && turtest.leftpost.isHuman"
-                        >HUMAN</h3>
-                    <h3 class="subtitle has-text-danger is-size-1"
-                        style="position: relative; top: -10px; z-index: -1"
-                        v-if="!asking && !turtest.leftpost.isHuman"
-                        >AI</h3>
+                    <h3 class="subtitle has-text-info is-size-1 answer"
+                        style="position: relative; top: -100px; z-index: -1"
+                        :class="{answerVisibleHuman: !asking && turtest.leftpost.isHuman}"
+                    >HUMAN</h3>
+                    <h3 class="subtitle has-text-danger is-size-1 answer"
+                        style="position: relative; top: -200px; z-index: -1"
+                        :class="{answerVisibleAI: !asking && !turtest.leftpost.isHuman}"
+                    >AI</h3>
                 </div>
                 <div class="column">
                     <div class="container has-background-primary-light is-rounded p-4"
@@ -64,16 +75,19 @@
                                 </p>
                             </div>
                         </article>
-                        <button @click="select" class="button is-primary is-fullwidth"><strong>No, This is human!</strong></button>
+                        <button id="right" @click="select" class="button has-text-weight-bold is-primary is-fullwidth">
+                            No, This is
+                            human!
+                        </button>
                     </div>
-                    <h3 class="subtitle has-text-info is-size-1"
-                        style="position: relative; top: -10px; z-index: -1"
-                        v-if="!asking && turtest.rightpost.isHuman"
-                        >HUMAN</h3>
-                    <h3 class="subtitle has-text-danger is-size-1"
-                        style="position: relative; top: -10px; z-index: -1"
-                        v-if="!asking && !turtest.rightpost.isHuman"
-                        >AI</h3>
+                    <h3 class="subtitle has-text-info is-size-1 answer"
+                        style="position: relative; top: -100px; z-index: -1"
+                        :class="{answerVisibleHuman: !asking && turtest.rightpost.isHuman}"
+                    >HUMAN</h3>
+                    <h3 class="subtitle has-text-danger is-size-1 answer"
+                        style="position: relative; top: -200px; z-index: -1"
+                        :class="{answerVisibleAI: !asking && !turtest.rightpost.isHuman}"
+                    >AI</h3>
                 </div>
             </div>
         </div>
