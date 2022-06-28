@@ -7,12 +7,12 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {alias: {'vue': 'vue/dist/vue.esm-bundler.js'}},
     base: "/TuringTest/",
-    build: {
-        rollupOptions: {
-            external: [
-                "index.css"
-            ],
-
-        }
-    }
+    // build: {
+    //     rollupOptions: {
+    //         external: [
+    //             "index.css"
+    //         ],
+    //
+    //     }
+    // }
 })

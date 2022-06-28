@@ -1,4 +1,5 @@
 import {createApp} from 'vue'
+import "../index.css"
 
 function sample(array) {
     return array[Math.floor(Math.random() * array.length)];
