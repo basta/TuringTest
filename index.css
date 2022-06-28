@@ -1,20 +1,48 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: white;
+}
+
+.blinkSuccess {
+    animation: backgroundSuccess 150ms ease-out;
+}
+
+.blinkFail {
+    animation: backgroundFail 150ms ease-out;
+}
+
 .answerVisibleHuman {
-    top: 0 !important;
+    top: -5px !important;
     transform: rotate(-5deg) !important;
+    opacity: 100%;
 }
 
 .answerVisibleAI {
-    top: -90px !important;
+    top: -35px !important;
     transform: rotate(6deg) !important;
+    opacity: 100%;
 }
 
 
 .answer {
-    transition: all 200ms;
+    transition: all 400ms ease-out;
+    /*opacity: 0;*/
     height: 0 !important;
     overflow: visible;
 }
 
 .post {
-    transition: max-height 200ms;
+    transition: max-height 800ms;
+
+}
+
+@keyframes backgroundSuccess {
+    50% {background-color: #3e8ed0}
+}
+
+@keyframes backgroundFail {
+    50% {background-color: #f14668}
 }

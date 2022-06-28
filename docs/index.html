@@ -5,94 +5,124 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<!--    <link rel="stylesheet" href="index.css">-->
+    <!--    <link rel="stylesheet" href="index.css">-->
     <!--    <link rel="stylesheet" href="bulma.css">-->
     
     <title>Hello Bulma!</title>
-  <script type="module" crossorigin src="/TuringTest/assets/index.bd4ea519.js"></script>
-  <link rel="stylesheet" href="/TuringTest/assets/index.c36d0827.css">
+  <script type="module" crossorigin src="/TuringTest/assets/index.9dd4af22.js"></script>
+  <link rel="stylesheet" href="/TuringTest/assets/index.b6db152e.css">
 </head>
 <body id="app">
 <!--  Header-->
-<section class="navbar">
-    <div class="container">
-        <div class="navbar-brand">
-            <h1 class="title navbar-item"> Reddit Turing Test </h1>
-        </div>
-        <div class="navbar-end">
-            <a class="navbar-item">
-                <span>Made with love by </span>&nbsp;<span class="has-text-link">basta</span>
-            </a>
-        </div>
+<div :class="{blinkFail: lastIncorrect, blinkSuccess: lastCorrect}" style="z-index: -1">
+    <nav class="navbar is-light">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1 class="title navbar-item"> Reddit Turing Test </h1>
+            </div>
 
-    </div>
-</section>
-<section class="section">
-    <div class="hero">
-        <div class="hero-body has-text-centered">
-            <p class="subtitle">Current subreddit:</p>
-            <h2 class="title"><span class="has-text-grey">r/</span>{{ turtest["subreddit"] }}</h2>
-            <div v-if="incorrect + correct !== 0" class="p-1" style="display: flex; justify-content: space-between">
-                <p class="has-text-info has-text-weight-bold">Correct: {{ correct }}</p>
-                <p class="has-text-danger has-text-weight-bold">Incorrect: {{ incorrect }} </p>
+            <div class="navbar-end">
+                <a href="#about" class="navbar-item">What is this?</a>
+                <a class="navbar-item">
+                    <span>Made with love by </span>&nbsp;<span class="has-text-link">basta</span>
+                </a>
             </div>
-            <progress
-                    v-if="incorrect + correct !== 0"
-                    class="progress is-info has-background-danger" :max="correct + incorrect"
-                    :value="correct"></progress>
-            <div class="columns">
-                <div class="column">
-                    <div class="container has-background-primary-light is-rounded p-4"
-                         style="height: 100%; flex-direction: column; display: flex; justify-content: space-between">
-                        <article class="media mb-4">
-                            <div class="media-content">
-                                <strong>{{ turtest.leftpost.title }}</strong>
-                                <p class="content">
-                                    {{ turtest.leftpost.text }}
-                                </p>
-                            </div>
-                        </article>
-                        <button id="left" @click="select" class="button is-primary is-fullwidth has-text-weight-bold">
-                            This is human!
-                        </button>
-                    </div>
-                    <h3 class="subtitle has-text-info is-size-1 answer"
-                        style="position: relative; top: -100px; z-index: -1"
-                        :class="{answerVisibleHuman: !asking && turtest.leftpost.isHuman}"
-                    >HUMAN</h3>
-                    <h3 class="subtitle has-text-danger is-size-1 answer"
-                        style="position: relative; top: -200px; z-index: -1"
-                        :class="{answerVisibleAI: !asking && !turtest.leftpost.isHuman}"
-                    >AI</h3>
+
+        </div>
+    </nav>
+    <section class="section">
+        <div class="hero">
+            <div class="hero-body has-text-centered">
+                <p class="subtitle">Current subreddit:</p>
+                <h2 class="title"><span class="has-text-grey">r/</span>{{ turtest["subreddit"] }}</h2>
+                <div v-if="incorrect + correct !== 0" class="p-1" style="display: flex; justify-content: space-between">
+                    <p class="has-text-info has-text-weight-bold">Correct: {{ correct }}</p>
+                    <p class="has-text-danger has-text-weight-bold">Incorrect: {{ incorrect }} </p>
                 </div>
-                <div class="column">
-                    <div class="container has-background-primary-light is-rounded p-4"
-                         style="height: 100%; flex-direction: column; display: flex; justify-content: space-between">
-                        <article class="media mb-4">
-                            <div class="media-content">
-                                <strong>{{ turtest.rightpost.title }}</strong>
-                                <p class="content">
-                                    {{ turtest.rightpost.text }}
-                                </p>
-                            </div>
-                        </article>
-                        <button id="right" @click="select" class="button has-text-weight-bold is-primary is-fullwidth">
-                            No, This is
-                            human!
-                        </button>
+                <progress
+                        v-if="incorrect + correct !== 0"
+                        class="progress is-info has-background-danger" :max="correct + incorrect"
+                        :value="correct"></progress>
+                <div class="columns">
+                    <div class="column">
+                        <div class="container has-background-primary-light is-rounded p-4"
+                             style="height: 100%; flex-direction: column; display: flex; z-index: 2; justify-content: space-between">
+                            <article class="media mb-4">
+                                <div class="media-content">
+                                    <strong>{{ turtest.leftpost.title }}</strong>
+                                    <p class="content">
+                                        {{ turtest.leftpost.text }}
+                                    </p>
+                                </div>
+                            </article>
+                            <button id="left" @click="select"
+                                    class="button is-primary is-fullwidth has-text-weight-bold">
+                                <span v-if="asking">
+                                    This is
+                                    human!
+                                </span>
+                                <span v-if="!asking">
+                                    Next
+                                </span>
+                            </button>
+                        </div>
+                        <h3 class="subtitle has-text-info is-size-1 answer"
+                            style="position: relative; top: -100px; z-index: 1"
+                            :class="{answerVisibleHuman: !asking && turtest.leftpost.isHuman}"
+                        >HUMAN</h3>
+                        <h3 class="subtitle has-text-danger is-size-1 answer mb-4"
+                            style="position: relative; top: -100px; z-index: 1;"
+                            :class="{answerVisibleAI: !asking && !turtest.leftpost.isHuman}"
+                        >AI</h3>
                     </div>
-                    <h3 class="subtitle has-text-info is-size-1 answer"
-                        style="position: relative; top: -100px; z-index: -1"
-                        :class="{answerVisibleHuman: !asking && turtest.rightpost.isHuman}"
-                    >HUMAN</h3>
-                    <h3 class="subtitle has-text-danger is-size-1 answer"
-                        style="position: relative; top: -200px; z-index: -1"
-                        :class="{answerVisibleAI: !asking && !turtest.rightpost.isHuman}"
-                    >AI</h3>
+                    <div class="column">
+                        <div class="container has-background-primary-light is-rounded p-4"
+                             style="height: 100%; flex-direction: column; display: flex; z-index: 2; justify-content: space-between">
+                            <article class="media mb-4">
+                                <div class="media-content">
+                                    <strong>{{ turtest.rightpost.title }}</strong>
+                                    <p class="content">
+                                        {{ turtest.rightpost.text }}
+                                    </p>
+                                </div>
+                            </article>
+                            <button id="right" @click="select"
+                                    class="button has-text-weight-bold is-primary is-fullwidth">
+                                <span v-if="asking">
+                                    No, This is
+                                    human!
+                                </span>
+                                <span v-if="!asking">
+                                    Next
+                                </span>
+                            </button>
+                        </div>
+                        <h3 class="subtitle has-text-info is-size-1 answer"
+                            style="position: relative; top: -100px; z-index: 1;"
+                            :class="{answerVisibleHuman: !asking && turtest.rightpost.isHuman}"
+                        >HUMAN</h3>
+                        <h3 class="subtitle has-text-danger is-size-1 answer"
+                            style="position: relative; top: -200px; z-index: 1"
+                            :class="{answerVisibleAI: !asking && !turtest.rightpost.isHuman}"
+                        >AI</h3>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <section class="section content">
+        <h2 class="title is-primary" id="about"> What is this?</h2>
+        <p>
+            Select the reddit post which you think is made by a human. The other one is created using a GPT-2 model,
+            which was trained on the given subreddit. The AI generated posts are taken from the subreddit
+            <a href="https://www.reddit.com/r/SubSimulatorGPT2">r/SubSimulatorGPT2</a> thanks to the brilliant work done
+            by <span class="has-text-primary-dark"> u/disumbrationist</span>.
+        </p>
+        <p>
+            This Turing Test presents you with a post created by GPT2 and a random hot post from the subreddit, where
+            this model was trained.
+        </p>
+    </section>
+</div>
 </body>
 </html>
