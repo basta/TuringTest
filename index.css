@@ -11,4 +11,10 @@
 
 .answer {
     transition: all 200ms;
+    height: 0 !important;
+    overflow: visible;
+}
+
+.post {
+    transition: max-height 200ms;
 }
