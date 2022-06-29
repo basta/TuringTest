@@ -50,7 +50,7 @@ createApp({
         loadTest() {
             console.log(window.location + "turtests.json")
             console.log("http://" + window.location.host + window.location.pathname + "turtests.json")
-            let url = "http://" + window.location.host + window.location.pathname + "turtests.json";
+            let url = window.location.protocol + "//" + window.location.host + window.location.pathname + "turtests.json";
             fetch(url).then(response => response.json()).then(json => {
                 let test = sample(json)
                 this.turtest.subreddit = test.subreddit
