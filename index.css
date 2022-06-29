@@ -7,11 +7,11 @@ body {
 }
 
 .blinkSuccess {
-    animation: backgroundSuccess 150ms ease-out;
+    animation: backgroundSuccess 200ms ease-in-out;
 }
 
 .blinkFail {
-    animation: backgroundFail 150ms ease-out;
+    animation: backgroundFail 200ms ease-in-out;
 }
 
 .answerVisibleHuman {
@@ -40,9 +40,9 @@ body {
 }
 
 @keyframes backgroundSuccess {
-    50% {background-color: #3e8ed0}
+    50% {background-color: #9ec6e7}
 }
 
 @keyframes backgroundFail {
-    50% {background-color: #f14668}
+    50% {background-color: #f8a2b3}
 }
